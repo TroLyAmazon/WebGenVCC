@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  transition: background 0.5s, color 0.5s;
+}
+
+body.dark {
+  background: #121212;
+  color: #f0f0f0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(0,0,0,0.1);
+}
+
+body.dark .container {
+  background: rgba(18, 18, 18, 0.95);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form label {
+  display: block;
+  margin: 1rem 0 0.3rem;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+textarea {
+  margin-top: 1rem;
+  height: 200px;
+  resize: vertical;
+  font-family: monospace;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.options label {
+  display: inline-block;
+  margin-right: 1rem;
+  font-weight: normal;
+}
+
+/* Toggle Dark Mode */
+.toggle-dark {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+/* Mưa rơi */
+.raindrop {
+  position: fixed;
+  width: 2px;
+  height: 15px;
+  background: #00f3ff;
+  top: -20px;
+  animation: fall 1s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}

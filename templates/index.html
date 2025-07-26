@@ -3,208 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png">
-  <title>Trình tạo thẻ ảo - NamsoGen Clone</title>
-  <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --input-bg: #f0f0f0;
-      --card-bg: #eeeeee;
-    }
-    [data-theme="dark"] {
-      --bg-color: #1e1e1e;
-      --text-color: #f0f0f0;
-      --input-bg: #2c2c2c;
-      --card-bg: #333333;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: sans-serif;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    body {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
-    }
-    #loading-screen {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      color: #fff;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    #rainbow {
-      width: 200px;
-      height: 100px;
-      border-radius: 50% 50% 0 0;
-      background: conic-gradient(red, orange, yellow, green, cyan, blue, violet, red);
-      animation: rainbow-fill 1.5s linear forwards;
-      transform: rotate(180deg);
-      opacity: 0.9;
-    }
-    @keyframes rainbow-fill {
-      0% { transform: scaleX(0.1) rotate(180deg); opacity: 0; }
-      100% { transform: scaleX(1) rotate(180deg); opacity: 1; }
-    }
-    input, button, select {
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      border: 1px solid #ccc;
-      padding: 5px 10px;
-      margin-top: 5px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    button {
-      cursor: pointer;
-    }
-    textarea {
-      background-color: var(--card-bg);
-      color: var(--text-color);
-      width: 100%;
-      height: 250px;
-      margin-top: 15px;
-      white-space: pre;
-      font-family: monospace;
-      padding: 10px;
-    }
-    .toggle-theme {
-      float: right;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      text-align: center;
-      opacity: 0.7;
-    }
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .raindrop {
-      position: fixed;
-      top: -20px;
-      width: 2px;
-      height: 15px;
-      background: rgba(0,0,255,0.3);
-      animation: fall 1s linear infinite;
-      z-index: 0;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(120vh);
-        opacity: 0;
-      }
-    }
-  </style>
+  <title>Trình tạo thẻ tín dụng ảo</title>
+  <link rel="icon" href="/static/duck.png">
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/script.js"></script>
 </head>
 <body>
-  <div id="loading-screen">
-    <h2>Đang tải...</h2>
-    <div id="rainbow"></div>
+  <div class="container">
+    <h1>Trình tạo thẻ tín dụng ảo</h1>
+    <form id="gen-form">
+      <label>BIN:</label>
+      <input type="text" id="bin" placeholder="Ví dụ: 404099" required>
+      <label>Số lượng:</label>
+      <input type="number" id="count" value="10" min="1" max="1000">
+      <div class="options">
+        <label><input type="checkbox" id="exp" checked> Ngày hết hạn</label>
+        <label><input type="checkbox" id="cvv" checked> Mã CVV</label>
+      </div>
+      <button type="submit">Tạo thẻ</button>
+    </form>
+
+    <textarea id="result-box" rows="10" placeholder="Danh sách thẻ sẽ hiển thị ở đây..."></textarea>
+    <div class="actions">
+      <button id="btn-copy">📋 Sao chép</button>
+      <button id="btn-download">⬇ Tải TXT</button>
+    </div>
+
+    <footer>
+      <p>Liên hệ Telegram: <a href="https://t.me/IntermediaryTransactions" target="_blank">@IntermediaryTransactions</a></p>
+    </footer>
   </div>
-
-  <div class="toggle-theme">
-    <label>Bật chế độ tối:
-      <input type="checkbox" id="theme-toggle">
-    </label>
-  </div>
-
-  <h2>Trình tạo thẻ tín dụng ảo</h2>
-  <form method="POST">
-    <label>Nhập BIN (6–12 chữ số):</label><br>
-    <input type="text" name="bin" required><br>
-
-    <label>Số lượng thẻ cần tạo:</label><br>
-    <input type="number" name="count" value="10" min="1" max="1000"><br>
-
-    <label><input type="checkbox" name="exp" checked> Bao gồm ngày hết hạn</label><br>
-    <label><input type="checkbox" name="cvv"> Bao gồm mã CVV</label><br><br>
-
-    <button type="submit">Tạo thẻ</button>
-  </form>
-
-  {% if cards %}
-  <h3>Danh sách thẻ đã tạo:</h3>
-  <textarea id="result-box" readonly>{% for card in cards %}{{ card }}
-{% endfor %}</textarea>
-  <div class="button-group">
-    <button onclick="copyText()">📋 Sao chép</button>
-    <button onclick="downloadText()">⬇ Tải về TXT</button>
-  </div>
-  {% endif %}
-
-  <footer>
-    Liên hệ Telegram: <a href="https://t.me/IntermediaryTransactions" target="_blank">@IntermediaryTransactions</a>
-  </footer>
 
   <script>
-    const toggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      toggle.checked = true;
+    // Dark mode theo localStorage
+    if (localStorage.getItem('dark') === 'true') {
+      document.body.classList.add('dark');
     }
-    toggle.addEventListener('change', function () {
-      if (this.checked) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    function copyText() {
-      const box = document.getElementById("result-box");
-      box.select();
-      document.execCommand("copy");
-      alert("Đã sao chép vào clipboard!");
-    }
-
-    function downloadText() {
-      const text = document.getElementById("result-box").value;
-      const blob = new Blob([text], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = "cc_gen_result.txt";
-      link.click();
-    }
-
-    // Mưa rơi toàn trang trong 1.5s
-    const drops = [];
-    for (let i = 0; i < 60; i++) {
-      const drop = document.createElement("div");
-      drop.className = "raindrop";
-      drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = 0.5 + Math.random() * 1.5 + "s";
-      drop.style.opacity = Math.random();
-      document.body.appendChild(drop);
-      drops.push(drop);
-    }
-    setTimeout(() => {
-      drops.forEach(d => d.remove());
-    }, 1500);
-
-    // Tự động tắt màn hình loading sau 1.5s
-    setTimeout(() => {
-      document.getElementById("loading-screen").style.display = "none";
-    }, 1500);
   </script>
 </body>
 </html>

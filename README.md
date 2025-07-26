@@ -1,6 +1,6 @@
-# 🧪 WebGenVCC – Trình tạo thẻ tín dụng ảo (BIN Generator)
+# 🧪 NamsoGen Clone – Trình tạo thẻ tín dụng ảo (BIN Generator)
 
-WebGenVCC là một ứng dụng web viết bằng **Flask + HTML/CSS/JS**, cho phép người dùng sinh ngẫu nhiên **danh sách số thẻ tín dụng ảo** theo chuẩn Luhn, từ một BIN cụ thể.
+NamsoGen Clone là một ứng dụng web viết bằng **Flask + HTML/CSS/JS**, cho phép người dùng sinh ngẫu nhiên **danh sách số thẻ tín dụng ảo** theo chuẩn Luhn, từ một BIN cụ thể.
 
 > ✅ **Dùng để test và phát triển phần mềm – không dùng để giao dịch thật.**
 
@@ -13,8 +13,15 @@ WebGenVCC là một ứng dụng web viết bằng **Flask + HTML/CSS/JS**, cho 
 * ✅ Tùy chọn thêm **ngày hết hạn (EXP)** và **mã bảo mật (CVV)**
 * ✅ Giao diện đẹp, hỗ trợ **chế độ tối / sáng**
 * ✅ Hiệu ứng **mưa rơi + cầu vồng cong khi tải trang**
-* ✅ Kết quả có thể **sao chép hoặc tải về file TXT**
-* ✅ Lưu lại lựa chọn chế độ nền bằng `localStorage`
+* ✅ Kết quả được sinh từ backend Flask (ẩn hoàn toàn logic)
+* ✅ Có thể sao chép hoặc tải TXT danh sách thẻ
+* ✅ Lưu lại chế độ nền bằng `localStorage`
+
+---
+
+## 🎥 Trải nghiệm giao diện
+
+> Giao diện gửi dữ liệu qua AJAX và nhận JSON từ Flask – không hề lộ thuật toán sinh thẻ.
 
 ---
 
@@ -22,13 +29,17 @@ WebGenVCC là một ứng dụng web viết bằng **Flask + HTML/CSS/JS**, cho 
 
 ```
 WebGenVCC/
-├── app.py              # Flask backend
-├── luhn.py             # Thuật toán kiểm tra Luhn
+├── app.py
+├── luhn.py
+├── requirements.txt
 ├── templates/
-│   └── index.html      # Giao diện HTML chính
+│   └── index.html
 ├── static/
-│   └── style.css       # (Tùy chọn) nếu tách CSS riêng
+│   ├── style.css      
+│   ├── script.js
+│   └── duck.png
 └── README.md
+
 ```
 
 ---
@@ -47,4 +58,4 @@ WebGenVCC/
 
 ## 📄 License
 
-MIT License Đéo Có
+MIT License – Đéo bt viết j
