@@ -14,16 +14,26 @@
     <form id="gen-form">
       <label>BIN:</label>
       <input type="text" id="bin" placeholder="Ví dụ: 404099" required>
+      
       <label>Số lượng:</label>
       <input type="number" id="count" value="10" min="1" max="1000">
+      
       <div class="options">
         <label><input type="checkbox" id="exp" checked> Ngày hết hạn</label>
+        <div id="exp-fields" style="margin-top:5px; display:none;">
+          <label>Tháng (MM): <input type="number" id="exp-mm" min="1" max="12" placeholder="MM"></label>
+          <label>Năm (YY): <input type="number" id="exp-yy" min="24" placeholder="YY"></label>
+          <small>Bỏ trống để random</small>
+        </div>
+
         <label><input type="checkbox" id="cvv" checked> Mã CVV</label>
       </div>
+
       <button type="submit">Tạo thẻ</button>
     </form>
 
     <textarea id="result-box" rows="10" placeholder="Danh sách thẻ sẽ hiển thị ở đây..."></textarea>
+    
     <div class="actions">
       <button id="btn-copy">📋 Sao chép</button>
       <button id="btn-download">⬇ Tải TXT</button>
